@@ -5,7 +5,7 @@ import androidx.room.Room
 import dagger.hilt.android.HiltAndroidApp
 import stu.mai.bd_mai.database.AppDatabase
 
-//@HiltAndroidApp
+@HiltAndroidApp
 class App : Application() {
     val database: AppDatabase by lazy { AppDatabase.createDataBase(this) }
 }

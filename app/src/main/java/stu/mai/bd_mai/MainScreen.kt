@@ -9,7 +9,6 @@ import stu.mai.bd_mai.navigation.rememberNavigationState
 @Composable
 fun MainScreen() {
 
-    Text(text = "Hello, world!")
     // val navigationState = rememberNavigationState()
     val navController = rememberNavController()
     Navigation(

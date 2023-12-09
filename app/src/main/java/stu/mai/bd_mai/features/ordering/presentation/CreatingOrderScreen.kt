@@ -17,67 +17,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Preview
 @Composable
-fun CreatingOrderScreen () {
+fun CreatingOrderScreen (
+//    orderViewModel: CreatingOrderVM = viewModel(factory = CreatingOrderVM.factory)
+) {
     var customerName by remember { mutableStateOf("") }
     var orderStatus by remember { mutableStateOf("") }
+
+    var customerId by remember { mutableStateOf(0) }
+    var executorId by remember { mutableStateOf(0) }
+    var orderDate by remember { mutableStateOf("") }
+    var status by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Поле ввода для имени заказчика
         OutlinedTextField(
             value = customerName,
             onValueChange = { customerName = it },
-            label = { Text("Customer Name") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            label = { Text("Введите заказчика") },
+            modifier = Modifier.fillMaxWidth()
         )
-
-        // Поле ввода для статуса заказа
         OutlinedTextField(
             value = orderStatus,
             onValueChange = { orderStatus = it },
-            label = { Text("Order Status") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            label = { Text("Введите исполнителя") },
+            modifier = Modifier.fillMaxWidth()
         )
 
-        // Кнопка для добавления заказа
         Button(
             onClick = {
-                // Создайте экземпляр Order и добавьте его в базу данных
-//                val newOrder = Order(customerName = customerName, orderStatus = orderStatus)
-//                orderViewModel.insertOrder(newOrder)
+                //orderViewModel.createOrder(orderId, customerId, executorId, orderDate, status)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Add Order")
+            Text("Создать заказ")
         }
     }
-}
 
-//Используйте ViewModel для выполнения операции вставки:
-//
-//kotlin
-//
-//class OrderViewModel(private val orderDao: OrderDao) : ViewModel() {
-//
-//    val allOrders: LiveData<List<Order>> = orderDao.getAllOrders().asLiveData()
-//
-//    fun insertOrder(order: Order) {
-//        viewModelScope.launch {
-//            orderDao.insertOrder(order)
-//        }
-//    }
-//}
+
+
+
+}

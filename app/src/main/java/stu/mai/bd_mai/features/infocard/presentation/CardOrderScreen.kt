@@ -5,7 +5,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun CardOrderScreen (
-    cardOrderVM: CardOrderVM = viewModel(factory = CardOrderVM.factory)
+    orderId: Int,
+//    cardOrderVM: CardOrderVM = viewModel(factory = CardOrderVM.factory)
 ) {
 
 }

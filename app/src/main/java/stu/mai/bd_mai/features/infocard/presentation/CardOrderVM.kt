@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
+import javax.inject.Inject
 
 class CardOrderVM(database: AppDatabase): ViewModel() {
     val ordersList = database.getOrderDao().getAllOrders()
@@ -20,3 +22,4 @@ class CardOrderVM(database: AppDatabase): ViewModel() {
         }
     }
 }
+

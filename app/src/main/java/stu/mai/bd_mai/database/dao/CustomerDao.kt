@@ -19,4 +19,6 @@ interface CustomerDao {
     @Delete
         suspend fun deleteCustomer(customer: Customer)
 
+    @Query("SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = :customerId")
+    suspend fun getCustomerById(customerId: Int): Customer
 }

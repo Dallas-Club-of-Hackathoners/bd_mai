@@ -1,15 +1,15 @@
-package stu.mai.bd_mai.di
-
-import android.content.Context
-import androidx.room.Room
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import stu.mai.bd_mai.database.AppDatabase
-import javax.inject.Singleton
-
+//package stu.mai.bd_mai.di
+//
+//import android.content.Context
+//import androidx.room.Room
+//import dagger.Module
+//import dagger.Provides
+//import dagger.hilt.InstallIn
+//import dagger.hilt.android.qualifiers.ApplicationContext
+//import dagger.hilt.components.SingletonComponent
+//import stu.mai.bd_mai.database.AppDatabase
+//import javax.inject.Singleton
+//
 //@Module
 //@InstallIn(SingletonComponent::class)
 //object AppModule {
@@ -18,12 +18,13 @@ import javax.inject.Singleton
 //    @Provides
 //    fun provideAppDatabase(
 //        @ApplicationContext app: Context
-//    ) = Room.databaseBuilder(
-//        app,
-//        AppDatabase::class.java,
-//        "PRODUCT_ORDERS"
-//    ).build() // The reason we can construct a database for the repo
-//
+//    ) : AppDatabase {
+//        return Room.databaseBuilder(
+//            app,
+//            AppDatabase::class.java,
+//            "PRODUCT_ORDERS"
+//        ).build() // The reason we can construct a database for the repo
+//    }
 //    @Singleton
 //    @Provides
 //    fun provideCommonDao(db: AppDatabase) =

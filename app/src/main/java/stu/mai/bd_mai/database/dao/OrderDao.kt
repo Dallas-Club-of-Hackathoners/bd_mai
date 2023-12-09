@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import stu.mai.bd_mai.database.entities.Order
 
@@ -20,4 +21,12 @@ interface OrderDao {
 
         @Delete
            suspend fun deleteOrder(order: Order)
+
+        // Получить заказ по его идентификатору
+        @Query("SELECT * FROM ORDERS WHERE ORDER_ID = :orderId")
+            suspend fun getOrderById(orderId: Int): Order?
+
+        // Обновить заказ
+         @Update
+            suspend fun updateOrder(order: Order)
 }

@@ -19,4 +19,6 @@ interface ExecutorDao {
     @Delete
         suspend fun deleteExecutor(executor: Executor)
 
+    @Query("SELECT * FROM EXECUTORS WHERE EXECUTOR_ID = :executorId")
+    suspend fun getExecutorById(executorId: Int): Executor
 }
