@@ -2,21 +2,10 @@ package stu.mai.bd_mai
 
 import android.app.Application
 import androidx.room.Room
+import dagger.hilt.android.HiltAndroidApp
 import stu.mai.bd_mai.database.AppDatabase
 
+//@HiltAndroidApp
 class App : Application() {
-
-    companion object {
-        lateinit var database: AppDatabase
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        database = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "PRODUCT_ORDERS"
-        ).build()
-    }
+    val database: AppDatabase by lazy { AppDatabase.createDataBase(this) }
 }

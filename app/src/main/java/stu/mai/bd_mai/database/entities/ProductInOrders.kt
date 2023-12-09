@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 @Entity(
-    tableName = "PRODUCT_IN_ORDERS",
+    tableName = "PRODUCT_IN_ORDER",
     primaryKeys = ["ORDER_ID", "PRODUCT_ID"],
     foreignKeys = [
         ForeignKey(
