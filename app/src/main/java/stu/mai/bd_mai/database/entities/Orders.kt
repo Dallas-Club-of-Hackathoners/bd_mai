@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
 
 data class Order(
     @PrimaryKey(autoGenerate = true)
-    val ORDER_ID: Int=0,
+    val ORDER_ID: Int = 0,
     val CUSTOMER_ID: Int,
     val EXECUTOR_ID: Int,
     val ORDER_DATE: String, // Используйте тип даты, который вам нужен

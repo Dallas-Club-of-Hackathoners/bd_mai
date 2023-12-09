@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "EXECUTORS")
 data class Executor(
-    @PrimaryKey val EXECUTOR_ID: Int,
+    @PrimaryKey(autoGenerate = true)
+    val EXECUTOR_ID: Int = 0,
     val NAME: String,
     val PHONE: String?,
     val EMAIL: String?

@@ -36,7 +36,7 @@ import stu.mai.bd_mai.database.entities.Supplier
         Supplier::class,
         MaterialsSuppliers::class
     ],
-    version = 1
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getCustomerDao(): CustomerDao
@@ -56,7 +56,9 @@ abstract class AppDatabase : RoomDatabase() {
                 context,
                 AppDatabase::class.java,
                 "PRODUCT_ORDERS"
-            ).build()
+            )
+                .fallbackToDestructiveMigration() // Используйте эту стратегию миграции
+                .build()
         }
     }
 

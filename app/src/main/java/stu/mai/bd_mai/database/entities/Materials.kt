@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "MATERIALS")
 data class Material(
-    @PrimaryKey val MATERIAL_ID: Int,
+    @PrimaryKey(autoGenerate = true)
+    val MATERIAL_ID: Int = 0,
     val NAME: String,
     val COUNT: Int
 )

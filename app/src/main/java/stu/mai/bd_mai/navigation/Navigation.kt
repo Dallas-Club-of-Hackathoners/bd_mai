@@ -74,19 +74,39 @@ fun Navigation(
         }
 
         composable(Screen.SettingCustomersScreen.route) {
-            SettingCustomersScreen()
+            SettingCustomersScreen(
+                onNavigateToSettings = {
+                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                },
+            )
         }
         composable(Screen.SettingExecutorsScreen.route) {
-            SettingExecutorsScreen()
+            SettingExecutorsScreen(
+                onNavigateToSettings = {
+                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                },
+            )
         }
         composable(Screen.SettingMaterialsScreen.route) {
-            SettingMaterialsScreen()
+            SettingMaterialsScreen(
+                onNavigateToSettings = {
+                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                },
+            )
         }
         composable(Screen.SettingProductsScreen.route) {
-            SettingProductsScreen()
+            SettingProductsScreen(
+                onNavigateToSettings = {
+                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                },
+            )
         }
         composable(Screen.SettingSuppliersScreen.route) {
-            SettingSuppliersScreen()
+            SettingSuppliersScreen(
+                onNavigateToSettings = {
+                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                },
+            )
         }
 
     }
