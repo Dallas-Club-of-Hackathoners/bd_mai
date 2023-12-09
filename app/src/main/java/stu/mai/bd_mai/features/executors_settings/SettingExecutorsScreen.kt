@@ -36,7 +36,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SettingExecutorsScreen(
     viewModel: SettingExecutorsVM = viewModel(factory = SettingExecutorsVM.factory),
-    onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit,
 
     ) {
     var name by remember { mutableStateOf("") }
@@ -105,7 +105,7 @@ fun SettingExecutorsScreen(
             Button(
                 onClick = {
                     viewModel.addExecutor(name, phone, email)
-                    onNavigateToSettings()
+                    onNavigateBack()
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -123,7 +123,7 @@ fun SettingExecutorsScreen(
             }
 
             Button(
-                onClick = { onNavigateToSettings() },
+                onClick = { onNavigateBack() },
                 modifier = Modifier
                     .weight(1f)
                     .padding(8.dp)

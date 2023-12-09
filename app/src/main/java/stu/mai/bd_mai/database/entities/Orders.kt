@@ -3,6 +3,7 @@ package stu.mai.bd_mai.database.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(
     tableName = "ORDERS",
@@ -16,15 +17,21 @@ import androidx.room.PrimaryKey
             entity = Executor::class,
             parentColumns = ["EXECUTOR_ID"],
             childColumns = ["EXECUTOR_ID"]
+        ),
+        ForeignKey(
+            entity = Product::class,
+            parentColumns = ["PRODUCT_ID"],
+            childColumns = ["PRODUCT_ID"]
         )
     ]
 )
-
 data class Order(
     @PrimaryKey(autoGenerate = true)
     val ORDER_ID: Int = 0,
     val CUSTOMER_ID: Int,
-    val EXECUTOR_ID: Int,
-    val ORDER_DATE: String, // Используйте тип даты, который вам нужен
+    val EXECUTOR_ID: Int?,
+    val PRODUCT_ID: Int?,
+    val COUNT: Int,
+    val ORDER_DATE: String,
     val STATUS_OF_ORDER: String
 )

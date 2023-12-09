@@ -38,7 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SettingSuppliersScreen (
     viewModel: SettingSuppliersVM = viewModel(factory = SettingSuppliersVM.factory),
-    onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
@@ -106,7 +106,7 @@ fun SettingSuppliersScreen (
             Button(
                 onClick = {
                     viewModel.addSupplier(name, phone, email)
-                    onNavigateToSettings()
+                    onNavigateBack()
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -124,7 +124,7 @@ fun SettingSuppliersScreen (
             }
 
             Button(
-                onClick = { onNavigateToSettings() },
+                onClick = { onNavigateBack() },
                 modifier = Modifier
                     .weight(1f)
                     .padding(8.dp)

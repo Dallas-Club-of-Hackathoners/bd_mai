@@ -35,7 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SettingCustomersScreen (
     viewModel: SettingCustomersVM = viewModel(factory = SettingCustomersVM.factory),
-    onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit,
     ) {
     var name by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
@@ -103,7 +103,7 @@ fun SettingCustomersScreen (
             Button(
                 onClick = {
                     viewModel.addCustomer(name, phone, email)
-                    onNavigateToSettings()
+                    onNavigateBack()
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -121,7 +121,7 @@ fun SettingCustomersScreen (
             }
 
             Button(
-                onClick = { onNavigateToSettings() },
+                onClick = { onNavigateBack() },
                 modifier = Modifier
                     .weight(1f)
                     .padding(8.dp)

@@ -63,8 +63,8 @@ fun CheckScreen(
         items(itemsList.value.size) { index ->
             OrderListItem(
                 order = itemsList.value[index],
-                customer = viewModel.getCustomerByOrderId(itemsList.value[index].ORDER_ID),
-                executor = viewModel.getExecutorByOrderId(itemsList.value[index].ORDER_ID),
+//                customer = viewModel.getCustomerByOrderId(itemsList.value[index].CUSTOMER_ID)!!,
+//                executor = viewModel.getExecutorByOrderId(itemsList.value[index].EXECUTOR_ID!!)!!,
                 onItemCLick = { id ->
                     onNavigateToCardOrder(id)
                 }
@@ -134,8 +134,8 @@ fun CheckScreen(
 @Composable
 fun OrderListItem(
     order: Order,
-    customer: Customer?,
-    executor: Executor?,
+//    customer: Customer,
+//    executor: Executor,
     onItemCLick: (Int) -> Unit = {}
 ) {
     Row(
@@ -150,8 +150,8 @@ fun OrderListItem(
         // Отобразите информацию о заказе
         Text(
             text = "Индитификатор: ${order.ORDER_ID} \n" +
-                " Заказчик: ${customer?.NAME}\n" +
-                " Исполнитель: ${executor?.NAME}\n" +
+//                " Заказчик: ${customer?.NAME}\n" +
+//                " Исполнитель: ${executor?.NAME}\n" +
                 " Дата заказа: ${order.ORDER_DATE}\n" +
                 " Статус: ${order.STATUS_OF_ORDER}"
         )
@@ -159,32 +159,32 @@ fun OrderListItem(
 
 }
 
-@Preview
-@Composable
-fun OrderListItemPreview() {
-    val order = Order(
-        ORDER_ID = 123,
-        CUSTOMER_ID = 456,
-        EXECUTOR_ID = 789,
-        ORDER_DATE = "2023-01-01",
-        STATUS_OF_ORDER = "Pending"
-    )
-
-    val customer = Customer(
-        CUSTOMER_ID = 456,
-        NAME = "John Doe",
-        PHONE = "123-456-789",
-        EMAIL = "john.doe@example.com"
-    )
-
-    val executor = Executor(
-        EXECUTOR_ID = 789,
-        NAME = "Jane Doe",
-        PHONE = "987-654-321",
-        EMAIL = "jane.doe@example.com"
-    )
-
-    OrderListItem(order = order, customer = customer, executor = executor)
-}
+//@Preview
+//@Composable
+//fun OrderListItemPreview() {
+//    val order = Order(
+//        ORDER_ID = 123,
+//        CUSTOMER_ID = 456,
+//        EXECUTOR_ID = 789,
+//        ORDER_DATE = "2023-01-01",
+//        STATUS_OF_ORDER = "Pending"
+//    )
+//
+//    val customer = Customer(
+//        CUSTOMER_ID = 456,
+//        NAME = "John Doe",
+//        PHONE = "123-456-789",
+//        EMAIL = "john.doe@example.com"
+//    )
+//
+//    val executor = Executor(
+//        EXECUTOR_ID = 789,
+//        NAME = "Jane Doe",
+//        PHONE = "987-654-321",
+//        EMAIL = "jane.doe@example.com"
+//    )
+//
+//    OrderListItem(order = order, customer = customer, executor = executor)
+//}
 
 

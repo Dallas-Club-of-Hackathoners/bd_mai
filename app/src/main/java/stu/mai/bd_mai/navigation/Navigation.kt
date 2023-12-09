@@ -41,7 +41,11 @@ fun Navigation(
             )
         }
         composable(Screen.CreatingOrderScreen.route) {
-            CreatingOrderScreen()
+            CreatingOrderScreen(
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                },
+            )
         }
 
         composable(Screen.NewParamsScreen.route) {
@@ -75,36 +79,36 @@ fun Navigation(
 
         composable(Screen.SettingCustomersScreen.route) {
             SettingCustomersScreen(
-                onNavigateToSettings = {
-                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                onNavigateBack = {
+                    navHostController.popBackStack()
                 },
             )
         }
         composable(Screen.SettingExecutorsScreen.route) {
             SettingExecutorsScreen(
-                onNavigateToSettings = {
-                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                onNavigateBack = {
+                    navHostController.popBackStack()
                 },
             )
         }
         composable(Screen.SettingMaterialsScreen.route) {
             SettingMaterialsScreen(
-                onNavigateToSettings = {
-                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                onNavigateBack = {
+                    navHostController.popBackStack()
                 },
             )
         }
         composable(Screen.SettingProductsScreen.route) {
             SettingProductsScreen(
-                onNavigateToSettings = {
-                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                onNavigateBack = {
+                    navHostController.popBackStack()
                 },
             )
         }
         composable(Screen.SettingSuppliersScreen.route) {
             SettingSuppliersScreen(
-                onNavigateToSettings = {
-                    navHostController.navigate(route = Screen.NewParamsScreen.route)
+                onNavigateBack = {
+                    navHostController.popBackStack()
                 },
             )
         }

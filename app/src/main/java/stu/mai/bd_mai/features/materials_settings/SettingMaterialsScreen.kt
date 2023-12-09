@@ -35,7 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SettingMaterialsScreen (
     viewModel: SettingMaterialsVM = viewModel(factory = SettingMaterialsVM.factory),
-    onNavigateToSettings: () -> Unit,
+    onNavigateBack: () -> Unit,
     ) {
     var name by remember { mutableStateOf("") }
     var count by remember { mutableStateOf(0) }
@@ -85,7 +85,7 @@ fun SettingMaterialsScreen (
             Button(
                 onClick = {
                     viewModel.addMaterial(name, count)
-                    onNavigateToSettings()
+                    onNavigateBack()
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -103,7 +103,7 @@ fun SettingMaterialsScreen (
             }
 
             Button(
-                onClick = { onNavigateToSettings() },
+                onClick = { onNavigateBack() },
                 modifier = Modifier
                     .weight(1f)
                     .padding(8.dp)

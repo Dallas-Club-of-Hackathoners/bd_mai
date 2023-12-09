@@ -40,7 +40,7 @@ fun NewParamsScreen (
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text(text = "Customers Settings", color = Color.White)
+            Text(text = "Настройка заказчиков", color = Color.White)
         }
 
         // Промежуток между кнопками
@@ -53,7 +53,7 @@ fun NewParamsScreen (
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text(text = "Executors Settings", color = Color.White)
+            Text(text = "Настройка исполнителей", color = Color.White)
         }
 
         // Промежуток между кнопками
@@ -68,7 +68,7 @@ fun NewParamsScreen (
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text(text = "Materials Settings", color = Color.White)
+            Text(text = "Настройка материалов", color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -80,7 +80,7 @@ fun NewParamsScreen (
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text(text = "Products Settings", color = Color.White)
+            Text(text = "Настройка продуктов", color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -92,7 +92,7 @@ fun NewParamsScreen (
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text(text = "Suppliers Settings", color = Color.White)
+            Text(text = "Настройка поставщиков", color = Color.White)
         }
     }
 }
