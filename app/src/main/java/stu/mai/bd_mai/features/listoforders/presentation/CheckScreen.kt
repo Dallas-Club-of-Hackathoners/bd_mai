@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Build
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -104,6 +106,32 @@ fun CheckScreen(
 
 }
 
+@Composable
+fun OrderListItem(
+    order: Order,
+//    customer: Customer,
+//    executor: Executor,
+    onItemCLick: (Int) -> Unit = {}
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .clickable { onItemCLick(order.ORDER_ID) } // Вызов функции при клике
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Отобразите информацию о заказе
+        ClickableText(
+            text = AnnotatedString("Заказ №${order.ORDER_ID}\n Дата: ${order.ORDER_DATE}\n Статус: ${order.STATUS_OF_ORDER}"),
+            onClick = { offset ->
+                // Обработка клика на часть текста, если необходимо
+            }
+        )
+    }
+}
+
 //@Composable
 //fun OrderListContent(
 //        viewModel: CheckScreenVM = viewModel(factory = CheckScreenVM.factory),
@@ -130,34 +158,6 @@ fun CheckScreen(
 //fun OrderListScreenPreview() {
 //    CheckScreen()
 //}
-
-@Composable
-fun OrderListItem(
-    order: Order,
-//    customer: Customer,
-//    executor: Executor,
-    onItemCLick: (Int) -> Unit = {}
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .clickable { /* Handle click on the order item if needed */ }
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Отобразите информацию о заказе
-        Text(
-            text = "Индитификатор: ${order.ORDER_ID} \n" +
-//                " Заказчик: ${customer?.NAME}\n" +
-//                " Исполнитель: ${executor?.NAME}\n" +
-                " Дата заказа: ${order.ORDER_DATE}\n" +
-                " Статус: ${order.STATUS_OF_ORDER}"
-        )
-    }
-
-}
 
 //@Preview
 //@Composable
