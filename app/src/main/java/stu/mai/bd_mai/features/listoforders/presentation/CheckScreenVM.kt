@@ -4,44 +4,94 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
+import stu.mai.bd_mai.database.entities.Order
+import stu.mai.bd_mai.database.entities.Product
 
 
 class CheckScreenVM(val database: AppDatabase): ViewModel() {
 
     val ordersList = database.getOrderDao().getAllOrders()
 
-    fun getCustomerByOrderId(orderId: Int): Customer? {
-        var customer: Customer? = null
-        viewModelScope.launch {
+
+
+    private var customer: Customer? = null
+
+    //...
+
+    suspend fun getCustomerByOrderIdAndAssign(orderId: Int) {
+        customer = viewModelScope.async(Dispatchers.IO) {
             val order = database.getOrderDao().getOrderById(orderId)
             val customerId = order?.CUSTOMER_ID
 
             if (customerId != null) {
-                customer = database.getCustomerDao().getCustomerById(customerId)
+                return@async database.getCustomerDao().getCustomerById(customerId)
+            } else {
+                return@async null
             }
-        }
+        }.await()
+    }
+
+    fun getCustomerValue(): Customer? {
         return customer
     }
 
-    fun getExecutorByOrderId(orderId: Int): Executor? {
-        var executor: Executor? = null
-        viewModelScope.launch {
+    private var product: Product = Product(0, "", 0.0, "", 0)
+
+    //...
+
+    suspend fun getProductByOrderIdAndAssign(orderId: Int) {
+        product = viewModelScope.async(Dispatchers.IO) {
+            val order = database.getOrderDao().getOrderById(orderId)
+            val productId = order?.PRODUCT_ID
+            if (productId != null) {
+                return@async database.getProductDao().getProductById(productId)
+            } else {
+                return@async Product(0, "", 0.0, "", 0)
+            }
+        }.await()
+    }
+
+    fun getProductValue(): Product {
+        return product
+    }
+
+
+
+
+    private var executor: Executor? = null
+
+    //...
+
+    suspend fun getExecutorByOrderIdAndAssign(orderId: Int) {
+        executor = viewModelScope.async(Dispatchers.IO) {
             val order = database.getOrderDao().getOrderById(orderId)
             val executorId = order?.EXECUTOR_ID
 
             if (executorId != null) {
-                executor = database.getExecutorDao().getExecutorById(executorId)
+                return@async database.getExecutorDao().getExecutorById(executorId)
+            } else {
+                return@async null
             }
-        }
+        }.await()
+    }
+
+    fun getExecutorValue(): Executor? {
         return executor
     }
 
-
+    fun deleteOrder(orderId: Int) {
+        viewModelScope.launch {
+            database.getOrderDao().deleteOrderById(orderId)
+        }
+    }
 
 
     companion object {

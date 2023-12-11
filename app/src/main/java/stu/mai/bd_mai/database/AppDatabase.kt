@@ -36,7 +36,7 @@ import stu.mai.bd_mai.database.entities.Supplier
         Supplier::class,
         MaterialsSuppliers::class
     ],
-    version = 4
+    version = 5
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getCustomerDao(): CustomerDao

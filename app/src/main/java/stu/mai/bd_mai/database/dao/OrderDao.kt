@@ -16,11 +16,14 @@ interface OrderDao {
         @Query("SELECT * FROM ORDERS")
             fun getAllOrders(): Flow<List<Order>>
 
-        @Insert(onConflict = OnConflictStrategy.IGNORE)
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
            suspend fun insertOrder(order: Order)
 
         @Delete
            suspend fun deleteOrder(order: Order)
+
+        @Query("DELETE FROM ORDERS WHERE ORDER_ID = :orderId")
+            suspend fun deleteOrderById(orderId: Int)
 
         // Получить заказ по его идентификатору
         @Query("SELECT * FROM ORDERS WHERE ORDER_ID = :orderId")

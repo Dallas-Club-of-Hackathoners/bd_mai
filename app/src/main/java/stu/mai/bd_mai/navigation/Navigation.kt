@@ -36,7 +36,7 @@ fun Navigation(
                 },
 
                 onNavigateToCardOrder = { id ->
-                    navHostController.navigate(route = Screen.CardOrderScreen(id).route)
+                    navHostController.navigate(route = Screen.CardOrderScreen(id).getRouteWithArgs())
                 }
             )
         }

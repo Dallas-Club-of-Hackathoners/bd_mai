@@ -17,6 +17,10 @@ interface ProductDao {
         @Insert(onConflict = OnConflictStrategy.IGNORE)
           suspend fun insertProduct(product: Product)
 
-        @Delete
+
+         @Query("SELECT * FROM PRODUCTS WHERE PRODUCT_ID = :productId")
+            suspend fun getProductById(productId: Int): Product
+
+    @Delete
           suspend fun deleteProduct(product: Product)
 }
