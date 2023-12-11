@@ -66,6 +66,7 @@ fun CheckScreen(
             items(itemsList.value.size) { index ->
                 OrderListItem(
                     order = itemsList.value[index],
+                    viewModel,
                     onDeleteClick = { id ->
                         viewModel.deleteOrder(id)
                     },
@@ -108,7 +109,7 @@ fun CheckScreen(
 @Composable
 fun OrderListItem(
     order: Order,
-    viewModel: CheckScreenVM = viewModel(factory = CheckScreenVM.factory), // Подставьте вашу вью-модель
+    viewModel: CheckScreenVM,
     onItemCLick: (Int) -> Unit = {},
     onDeleteClick: (Int) -> Unit = {}
 ) {
