@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Material
+import javax.inject.Inject
 
-class SettingMaterialsVM(val database: AppDatabase) : ViewModel() {
+@HiltViewModel
+class SettingMaterialsVM @Inject constructor(val database: AppDatabase) : ViewModel() {
 
     fun addMaterial(name: String, count: Int) {
         viewModelScope.launch {
@@ -22,13 +25,13 @@ class SettingMaterialsVM(val database: AppDatabase) : ViewModel() {
         }
     }
 
-    companion object {
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
-                return SettingMaterialsVM(database) as T
-            }
-        }
-    }
+//    companion object {
+//        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
+//                return SettingMaterialsVM(database) as T
+//            }
+//        }
+//    }
 }

@@ -5,14 +5,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Material
 import stu.mai.bd_mai.database.entities.Product
+import javax.inject.Inject
 
-class SettingProductsVM(val database: AppDatabase) : ViewModel() {
+@HiltViewModel
+class SettingProductsVM @Inject constructor(val database: AppDatabase) : ViewModel() {
 
 
     // Получить список материалов из базы данных
@@ -32,13 +35,13 @@ class SettingProductsVM(val database: AppDatabase) : ViewModel() {
         }
     }
 
-        companion object {
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
-                return SettingProductsVM(database) as T
-            }
-        }
-    }
+//        companion object {
+//        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
+//                return SettingProductsVM(database) as T
+//            }
+//        }
+//    }
 }

@@ -31,11 +31,14 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SettingExecutorsScreen(
-    viewModel: SettingExecutorsVM = viewModel(factory = SettingExecutorsVM.factory),
+    viewModel: SettingExecutorsVM = hiltViewModel(
+//        factory = SettingExecutorsVM.factory
+    ),
     onNavigateBack: () -> Unit,
 
     ) {

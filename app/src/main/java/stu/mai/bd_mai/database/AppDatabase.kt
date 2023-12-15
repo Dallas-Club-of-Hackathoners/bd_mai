@@ -1,10 +1,7 @@
 package stu.mai.bd_mai.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import stu.mai.bd_mai.database.dao.CommonDao
 import stu.mai.bd_mai.database.dao.CustomerDao
 import stu.mai.bd_mai.database.dao.ExecutorDao
 import stu.mai.bd_mai.database.dao.MaterialDao
@@ -38,6 +35,7 @@ import stu.mai.bd_mai.database.entities.Supplier
     ],
     version = 5
 )
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getCustomerDao(): CustomerDao
     abstract fun getExecutorDao(): ExecutorDao
@@ -48,19 +46,18 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getProductInOrderDao(): ProductInOrderDao
     abstract fun getSupplierDao(): SupplierDao
     abstract fun getMaterialsSuppliersDao(): MaterialsSuppliersDao
-    abstract fun getCommonDao(): CommonDao
 
-    companion object {
-        fun createDataBase(context:Context): AppDatabase {
-            return Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "PRODUCT_ORDERS"
-            )
-                .fallbackToDestructiveMigration() // Используйте эту стратегию миграции
-                .build()
-        }
-    }
+//    companion object {
+//        fun createDataBase(context:Context): AppDatabase {
+//            return Room.databaseBuilder(
+//                context,
+//                AppDatabase::class.java,
+//                "PRODUCT_ORDERS"
+//            )
+//                .fallbackToDestructiveMigration() // Используйте эту стратегию миграции
+//                .build()
+//        }
+//    }
 
 }
 

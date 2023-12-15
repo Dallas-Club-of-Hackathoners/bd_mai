@@ -32,12 +32,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SettingSuppliersScreen (
-    viewModel: SettingSuppliersVM = viewModel(factory = SettingSuppliersVM.factory),
+    viewModel: SettingSuppliersVM = hiltViewModel(
+//        factory = SettingSuppliersVM.factory
+    ),
     onNavigateBack: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }

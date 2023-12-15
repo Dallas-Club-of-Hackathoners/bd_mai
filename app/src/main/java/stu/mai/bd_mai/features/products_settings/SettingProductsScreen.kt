@@ -25,13 +25,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Material
 import stu.mai.bd_mai.database.entities.Product
 
 @Composable
 fun SettingProductsScreen (
-    viewModel: SettingProductsVM = viewModel(factory = SettingProductsVM.factory),
+    viewModel: SettingProductsVM = hiltViewModel(
+//        factory = SettingProductsVM.factory
+    ),
     onNavigateBack: () -> Unit,
     ) {
     var name by remember { mutableStateOf("") }

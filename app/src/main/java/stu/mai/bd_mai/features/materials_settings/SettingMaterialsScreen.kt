@@ -21,6 +21,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,15 +31,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SettingMaterialsScreen (
-    viewModel: SettingMaterialsVM = viewModel(factory = SettingMaterialsVM.factory),
+    viewModel: SettingMaterialsVM = hiltViewModel(
+//        factory = SettingMaterialsVM.factory
+    ),
     onNavigateBack: () -> Unit,
     ) {
     var name by remember { mutableStateOf("") }
-    var count by remember { mutableStateOf(0) }
+    var count by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier

@@ -1,15 +1,16 @@
 package stu.mai.bd_mai.features.customers_settings
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Customer
+import javax.inject.Inject
 
-class SettingCustomersVM(val database: AppDatabase) : ViewModel() {
+
+@HiltViewModel
+class SettingCustomersVM @Inject constructor(val database: AppDatabase) : ViewModel() {
 
     fun addCustomer(name: String, phone: String, email: String) {
         viewModelScope.launch {
@@ -23,14 +24,15 @@ class SettingCustomersVM(val database: AppDatabase) : ViewModel() {
     }
 
 
-    companion object {
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]) as App).database
-                return SettingCustomersVM(database) as T
-            }
-        }
-    }
+//    companion object {
+//        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database =
+//                (checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]) as App).database
+//                return SettingCustomersVM(database) as T
+//            }
+//        }
+//    }
 
 }

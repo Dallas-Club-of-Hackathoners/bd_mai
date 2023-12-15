@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
@@ -43,7 +44,9 @@ import stu.mai.bd_mai.database.entities.Product
 
 @Composable
 fun CreatingOrderScreen (
-    viewModel: CreatingOrderVM = viewModel(factory = CreatingOrderVM.factory),
+    viewModel: CreatingOrderVM = hiltViewModel(
+//        factory = CreatingOrderVM.factory
+    ),
     onNavigateBack: () -> Unit,
 ) {
     var expandedCustomerMenu by remember { mutableStateOf(false) }

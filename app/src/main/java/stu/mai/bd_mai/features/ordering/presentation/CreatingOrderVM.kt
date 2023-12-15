@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Order
 import java.util.Calendar
+import javax.inject.Inject
 
-class CreatingOrderVM( val database: AppDatabase): ViewModel() {
+@HiltViewModel
+class CreatingOrderVM @Inject constructor(val database: AppDatabase): ViewModel() {
 
     // Получить список заказчиков из базы данных
     fun getCustomers() = database.getCustomerDao().getAllCustomers()
@@ -43,12 +46,13 @@ class CreatingOrderVM( val database: AppDatabase): ViewModel() {
         }
     }
 
-    companion object {
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]) as App).database
-                return CreatingOrderVM(database) as T
-            }
-        }
-    }}
+//    companion object {
+//        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database = (checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]) as App).database
+//                return CreatingOrderVM(database) as T
+//            }
+//        }
+//    }
+}

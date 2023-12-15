@@ -24,29 +24,46 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.toList
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
 import stu.mai.bd_mai.database.entities.Order
 import stu.mai.bd_mai.database.entities.Product
+import androidx.compose.runtime.LaunchedEffect as LaunchedEffect
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckScreen(
-    viewModel: CheckScreenVM = viewModel(factory = CheckScreenVM.factory),
+    viewModel: CheckScreenVM = hiltViewModel(
+//        factory = CheckScreenVM.factory
+    ),
     onNavigateToCreatingOrder: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToCardOrder: (id: Int) -> Unit,
 ) {
+
+//    LaunchedEffect(key1 = Unit) {
+//        val orList = viewModel.database.getOrderDao().getAllOrders().toList()
+//        for (orders in orList) {
+//            for (order in orders) {
+//                viewModel.getCustomerByOrderIdAndAssign(order.ORDER_ID)
+//                viewModel.getExecutorByOrderIdAndAssign(order.ORDER_ID)
+//                viewModel.getProductAsync(order.ORDER_ID)
+//            }
+//        }
+//    }
+
     Column {
         TopAppBar(
             title = {
@@ -117,7 +134,7 @@ fun OrderListItem(
         // Вызывайте функции загрузки данных из вашей вью-модели при изменении ORDER_ID
         viewModel.getCustomerByOrderIdAndAssign(order.ORDER_ID)
         viewModel.getExecutorByOrderIdAndAssign(order.ORDER_ID)
-        viewModel.getProductByOrderIdAndAssign(order.ORDER_ID)
+        viewModel.getProductAsync(order.ORDER_ID)
     }
 
     Row(

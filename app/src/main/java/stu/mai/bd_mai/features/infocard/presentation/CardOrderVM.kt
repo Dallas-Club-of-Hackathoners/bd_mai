@@ -8,18 +8,18 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import javax.inject.Inject
-
-class CardOrderVM(database: AppDatabase): ViewModel() {
+@HiltViewModel
+class CardOrderVM @Inject constructor(database: AppDatabase): ViewModel() {
     val ordersList = database.getOrderDao().getAllOrders()
 
-    companion object {
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
-                return CardOrderVM(database) as T
-            }
-        }
-    }
+//    companion object {
+//        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
+//                return CardOrderVM(database) as T
+//            }
+//        }
+//    }
 }
 

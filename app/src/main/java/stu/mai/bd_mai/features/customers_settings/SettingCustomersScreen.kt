@@ -30,11 +30,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun SettingCustomersScreen (
-    viewModel: SettingCustomersVM = viewModel(factory = SettingCustomersVM.factory),
+    viewModel: SettingCustomersVM = hiltViewModel(
+//        factory = SettingCustomersVM.factory
+    ),
     onNavigateBack: () -> Unit,
     ) {
     var name by remember { mutableStateOf("") }

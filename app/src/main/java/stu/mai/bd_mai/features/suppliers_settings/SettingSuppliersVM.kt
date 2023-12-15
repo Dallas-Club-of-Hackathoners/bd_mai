@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.Supplier
+import javax.inject.Inject
 
-class SettingSuppliersVM(val database: AppDatabase): ViewModel() {
+@HiltViewModel
+class SettingSuppliersVM @Inject constructor(val database: AppDatabase): ViewModel() {
 
     fun addSupplier(name: String, phone: String, email: String) {
         viewModelScope.launch {
@@ -23,13 +26,13 @@ class SettingSuppliersVM(val database: AppDatabase): ViewModel() {
     }
 
 
-    companion object {
-        val factory: androidx.lifecycle.ViewModelProvider.Factory = object : androidx.lifecycle.ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
-                return SettingSuppliersVM(database) as T
-            }
-        }
-    }
+//    companion object {
+//        val factory: androidx.lifecycle.ViewModelProvider.Factory = object : androidx.lifecycle.ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+//                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
+//                return SettingSuppliersVM(database) as T
+//            }
+//        }
+//    }
 }
