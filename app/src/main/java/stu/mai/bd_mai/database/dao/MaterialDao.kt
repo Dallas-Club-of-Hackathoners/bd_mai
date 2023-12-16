@@ -20,4 +20,7 @@ interface MaterialDao {
         @Delete
             suspend fun deleteMaterial(material: Material)
 
+        @Query("SELECT * FROM MATERIALS WHERE MATERIAL_ID = :materialId")
+        suspend fun getMaterialById(materialId: Int): Material
+
 }

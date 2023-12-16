@@ -37,8 +37,7 @@ class CreatingOrderVM @Inject constructor(val database: AppDatabase): ViewModel(
             val order = Order(
                 CUSTOMER_ID = customerId,
                 EXECUTOR_ID = executorId,
-                PRODUCT_ID = productId,
-                COUNT = count,
+
                 ORDER_DATE = currentDate.toString(),
                 STATUS_OF_ORDER = status
             )

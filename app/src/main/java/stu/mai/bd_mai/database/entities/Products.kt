@@ -6,13 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "PRODUCTS",
-    foreignKeys = [
-        ForeignKey(
-            entity = Material::class,
-            parentColumns = ["MATERIAL_ID"],
-            childColumns = ["MATERIAL_ID"]
-        )
-    ]
+
 )
 data class Product(
     @PrimaryKey(autoGenerate = true)
@@ -20,5 +14,4 @@ data class Product(
     val NAME: String,
     val PRICE: Double,
     val DESCRIPTION: String,
-    val MATERIAL_ID: Int
 )

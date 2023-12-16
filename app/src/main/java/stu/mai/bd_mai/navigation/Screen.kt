@@ -5,7 +5,7 @@ sealed class Screen(
 ) {
 
 
-    object CheckScreen : Screen(ROUTE_CHECK)
+    object CheckScreenRoute : Screen(ROUTE_CHECK)
     object CreatingOrderScreen : Screen(ROUTE_ORDERING)
     object NewParamsScreen : Screen(ROUTE_NEW_PARAMS)
 
@@ -29,7 +29,7 @@ sealed class Screen(
         const val SETTING_CUSTOMERS = "customers"
         const val SETTING_PRODUCTS = "products"
         const val SETTING_MATERIALS = "materials"
-        const val ROUTE_CHECK = "check_screen"
+        const val ROUTE_CHECK = "check_screen_route"
         const val ROUTE_ORDERING = "creating_order"
         const val ROUTE_CARD_FOR_ARG = "card_order"
         const val ROUTE_CARD = "$ROUTE_CARD_FOR_ARG/{$KEY_ID}"

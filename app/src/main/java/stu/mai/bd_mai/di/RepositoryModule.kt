@@ -4,11 +4,13 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import stu.mai.bd_mai.features.orders.repositories.CheckRepository
+import stu.mai.bd_mai.features.orders.repositories.CheckRepositoryImpl
 
-//@Module
-//@InstallIn(SingletonComponent::class)
-//abstract class RepositoryModule {
-//
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+
 //    @Binds
 //    abstract fun bindCreatingOrderRepository(
 //
@@ -18,17 +20,17 @@ import dagger.hilt.components.SingletonComponent
 //    abstract fun bindCardOrderRepository(
 //
 //    )
-//
-//    @Binds
-//    abstract fun bindCheckRepository(
-//
-//    )
-//
+
+    @Binds
+    abstract fun bindCheckRepository(
+        checkRepository: CheckRepositoryImpl
+    ): CheckRepository
+
 //    @Binds
 //    abstract fun bindNewParamsRepository(
 //
 //    )
-//
-//
-//
-//}
+
+
+
+}

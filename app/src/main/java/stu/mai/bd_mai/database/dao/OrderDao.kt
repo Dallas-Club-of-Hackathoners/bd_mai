@@ -27,7 +27,7 @@ interface OrderDao {
 
         // Получить заказ по его идентификатору
         @Query("SELECT * FROM ORDERS WHERE ORDER_ID = :orderId")
-            suspend fun getOrderById(orderId: Int): Order?
+            suspend fun getOrderById(orderId: Int): Order
 
         // Обновить заказ
          @Update

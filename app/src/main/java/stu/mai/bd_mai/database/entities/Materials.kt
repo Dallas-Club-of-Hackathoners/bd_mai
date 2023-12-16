@@ -8,5 +8,5 @@ data class Material(
     @PrimaryKey(autoGenerate = true)
     val MATERIAL_ID: Int = 0,
     val NAME: String,
-    val COUNT: Int
+    val DIMENSION: String
 )

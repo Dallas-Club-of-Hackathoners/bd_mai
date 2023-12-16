@@ -1,20 +1,21 @@
 package stu.mai.bd_mai.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import stu.mai.bd_mai.features.customers_settings.SettingCustomersScreen
-import stu.mai.bd_mai.features.executors_settings.SettingExecutorsScreen
-import stu.mai.bd_mai.features.infocard.presentation.CardOrderScreen
-import stu.mai.bd_mai.features.listoforders.presentation.CheckScreen
-import stu.mai.bd_mai.features.materials_settings.SettingMaterialsScreen
+import stu.mai.bd_mai.features.settings.customers.SettingCustomersScreen
+import stu.mai.bd_mai.features.settings.executors.SettingExecutorsScreen
+import stu.mai.bd_mai.features.orders.presentation.card.CardOrderScreenRoute
+import stu.mai.bd_mai.features.orders.presentation.list.CheckScreenRoute
+import stu.mai.bd_mai.features.settings.materials.SettingMaterialsScreen
 import stu.mai.bd_mai.features.ordering.presentation.CreatingOrderScreen
-import stu.mai.bd_mai.features.products_settings.SettingProductsScreen
-import stu.mai.bd_mai.features.settings.presentation.NewParamsScreen
-import stu.mai.bd_mai.features.suppliers_settings.SettingSuppliersScreen
+import stu.mai.bd_mai.features.settings.products.SettingProductsScreen
+import stu.mai.bd_mai.features.settings.main.NewParamsScreen
+import stu.mai.bd_mai.features.settings.suppliers.SettingSuppliersScreen
 
 
 @Composable
@@ -23,20 +24,22 @@ fun Navigation(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.CheckScreen.route
+        startDestination = Screen.CheckScreenRoute.route
     ) {
 
-        composable(Screen.CheckScreen.route) {
-            CheckScreen(
+        composable(Screen.CheckScreenRoute.route) {
+            CheckScreenRoute(
                 onNavigateToSettings = {
                     navHostController.navigate(route = Screen.NewParamsScreen.route)
+                    Log.d("Navigation", "Navigating to Settings screen")
                 },
                 onNavigateToCreatingOrder = {
                     navHostController.navigate(route = Screen.CreatingOrderScreen.route)
+                    Log.d("Navigation", "Navigating to Creating Order screen")
                 },
-
                 onNavigateToCardOrder = { id ->
                     navHostController.navigate(route = Screen.CardOrderScreen(id).getRouteWithArgs())
+                    Log.d("Navigation", "Navigating to Card Order screen with ID: $id")
                 }
             )
         }
@@ -65,6 +68,9 @@ fun Navigation(
                 onNavigateToSuppliersSettings = {
                     navHostController.navigate(route = Screen.SettingSuppliersScreen.route)
                 },
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                },
             )
 
         }
@@ -72,8 +78,11 @@ fun Navigation(
             route = Screen.ROUTE_CARD,
             arguments = listOf(navArgument(Screen.KEY_ID) {type = NavType.IntType }) ,
         ) {
-            CardOrderScreen(
-                orderId = it.arguments?.getInt(Screen.KEY_ID) ?: throw (Exception())
+            CardOrderScreenRoute(
+                orderId = it.arguments?.getInt(Screen.KEY_ID) ?: throw (Exception()),
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                },
             )
         }
 

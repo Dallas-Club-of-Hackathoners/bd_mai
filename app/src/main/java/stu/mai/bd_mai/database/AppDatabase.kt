@@ -33,7 +33,7 @@ import stu.mai.bd_mai.database.entities.Supplier
         Supplier::class,
         MaterialsSuppliers::class
     ],
-    version = 5
+    version = 6
 )
 
 abstract class AppDatabase : RoomDatabase() {

@@ -21,6 +21,8 @@ object DatabaseModule {
             app,
             AppDatabase::class.java,
             "PRODUCT_ORDERS"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

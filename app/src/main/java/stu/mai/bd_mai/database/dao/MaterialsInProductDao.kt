@@ -11,6 +11,12 @@ import stu.mai.bd_mai.database.entities.MaterialsInProduct
 @Dao
 interface MaterialsInProductDao {
 
+        @Query("SELECT * FROM MATERIALS_IN_PRODUCT WHERE MATERIAL_ID = :materialId")
+            fun getMaterialsInProductByMaterialId(materialId: Int): Flow<List<MaterialsInProduct>>
+
+        @Query("SELECT * FROM MATERIALS_IN_PRODUCT WHERE PRODUCT_ID = :productId")
+            fun getMaterialsInProductByProductId(productId: Int): Flow<List<MaterialsInProduct>>
+
         @Query("SELECT * FROM MATERIALS_IN_PRODUCT")
             fun getAllMaterialsInProducts(): Flow<List<MaterialsInProduct>>
 

@@ -11,6 +11,9 @@ import stu.mai.bd_mai.database.entities.Supplier
 @Dao
 interface SupplierDao {
 
+    @Query("SELECT * FROM SUPPLIERS WHERE SUPPLIER_ID = :supplierId")
+    suspend fun getSupplierById(supplierId: Int): Supplier
+
     @Query("SELECT * FROM SUPPLIERS")
     fun getAllSuppliers(): Flow<List<Supplier>>
 
