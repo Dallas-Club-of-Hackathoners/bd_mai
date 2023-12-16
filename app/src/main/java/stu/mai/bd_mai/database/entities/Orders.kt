@@ -18,11 +18,7 @@ import java.util.Date
             parentColumns = ["EXECUTOR_ID"],
             childColumns = ["EXECUTOR_ID"]
         ),
-//        ForeignKey(
-//            entity = Product::class,
-//            parentColumns = ["PRODUCT_ID"],
-//            childColumns = ["PRODUCT_ID"]
-//        )
+
     ]
 )
 data class Order(
@@ -30,8 +26,6 @@ data class Order(
     val ORDER_ID: Int = 0,
     val CUSTOMER_ID: Int,
     val EXECUTOR_ID: Int,
-//    val PRODUCT_ID: Int,
-//    val COUNT: Int,
     val ORDER_DATE: String,
     val STATUS_OF_ORDER: String,
 )

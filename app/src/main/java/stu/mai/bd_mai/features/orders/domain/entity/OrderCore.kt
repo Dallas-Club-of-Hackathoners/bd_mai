@@ -8,8 +8,8 @@ data class OrderCore(
     val orderId: Int,
     val orderData: String,
     val orderStatus: String,
-    val orderExecutor: Executor,
-    val orderCustomer: Customer,
+    val orderExecutor: Executor, //переделать на ExecutorCore
+    val orderCustomer: Customer, //переделать на CustomerCore
     val orderPrice: Double,
     val orderProduct: List<ProductCore>,
 
@@ -29,6 +29,7 @@ data class MaterialCore(
     val materialDimension: String,
     val materialSuppliers: List<Supplier>,
 )
+
 //enum class StatusOfOrder {
 //    New,
 //    InProgress,

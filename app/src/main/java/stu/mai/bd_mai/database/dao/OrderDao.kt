@@ -13,7 +13,10 @@ import stu.mai.bd_mai.database.entities.Order
 @Dao
 interface OrderDao {
 
-        @Query("SELECT * FROM ORDERS")
+    @Query("SELECT MAX(ORDER_ID) FROM ORDERS")
+    suspend fun getMaxOrderId(): Int
+
+    @Query("SELECT * FROM ORDERS")
             fun getAllOrders(): Flow<List<Order>>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)

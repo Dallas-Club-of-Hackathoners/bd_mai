@@ -22,5 +22,4 @@ import androidx.room.ForeignKey
 data class MaterialsSuppliers(
     val SUPPLIER_ID: Int,
     val MATERIAL_ID: Int,
-    val COUNT: Int
 )

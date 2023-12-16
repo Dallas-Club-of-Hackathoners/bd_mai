@@ -202,11 +202,12 @@ fun OrderCardSummary(order: OrderCore, onNavigateToCardOrder: (orderId: Int) -> 
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            Text(text = "Order ID: ${order.orderId}")
-            Text(text = "Status: ${order.orderStatus}")
-            Text(text = "Executor: ${order.orderExecutor.NAME}")
-            Text(text = "Order Price: ${order.orderPrice}")
-            Text(text = "Products: ${getProductsSummary(order.orderProduct)}")
+            Text(text = "Заказ №${order.orderId}")
+            Text(text = "Статус: ${order.orderStatus}")
+            Text(text = "Исполнитель: ${order.orderExecutor.NAME}")
+            Text(text = "Стоимость заказа: ${order.orderPrice}")
+            Text(text = "Продукты: ${getProductsSummary(order.orderProduct)}")
+
 
             Button(
                 onClick = { onNavigateToCardOrder(order.orderId) },
