@@ -11,10 +11,10 @@ import stu.mai.bd_mai.database.entities.ProductInOrder
 interface ProductInOrderDao {
 
         @Query("SELECT * FROM PRODUCT_IN_ORDER WHERE ORDER_ID = :orderId")
-            fun getProductsInOrderById(orderId: Int): Flow<List<ProductInOrder>>
+            fun getProductsInOrderById(orderId: Int): List<ProductInOrder>
 
         @Query("SELECT * FROM PRODUCT_IN_ORDER")
-            fun getProductsInOrderById(): Flow<List<ProductInOrder>>
+            fun getAllProductsInOrder(): Flow<List<ProductInOrder>>
 
         @Insert(onConflict = OnConflictStrategy.IGNORE)
            suspend fun insertProductInOrder(productInOrder: ProductInOrder)

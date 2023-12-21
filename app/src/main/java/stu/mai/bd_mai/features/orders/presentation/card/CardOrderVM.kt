@@ -3,11 +3,14 @@ package stu.mai.bd_mai.features.orders.presentation.card
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import stu.mai.bd_mai.features.orders.domain.usecase.GetOrderInfoUseCase
 import javax.inject.Inject
 @HiltViewModel
@@ -24,7 +27,7 @@ class CardOrderVM @Inject constructor(
         }
     }
 
-    private fun getOrder(orderId: Int) = viewModelScope.launch {
+    private fun getOrder(orderId: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val order = getOrderInfoUseCase.getOrderById(orderId)
             mutableScreenState.update { it.copy(order = order) }
@@ -32,9 +35,10 @@ class CardOrderVM @Inject constructor(
             // todo handle exception
             // add side effect?
         }
+
     }
 
-    fun deleteOrder(orderId: Int) = viewModelScope.launch {
+    fun deleteOrder(orderId: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             getOrderInfoUseCase.deleteOrderById(orderId)
         } catch (e: Exception) {

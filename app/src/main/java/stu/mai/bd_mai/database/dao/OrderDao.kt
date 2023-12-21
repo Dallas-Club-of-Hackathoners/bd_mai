@@ -17,7 +17,7 @@ interface OrderDao {
     suspend fun getMaxOrderId(): Int
 
     @Query("SELECT * FROM ORDERS")
-            fun getAllOrders(): Flow<List<Order>>
+            fun getAllOrders(): List<Order>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
            suspend fun insertOrder(order: Order)

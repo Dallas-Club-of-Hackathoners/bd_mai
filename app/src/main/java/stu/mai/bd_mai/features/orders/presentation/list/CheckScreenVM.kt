@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.features.orders.domain.usecase.GetOrderListUseCase
@@ -30,6 +31,7 @@ class CheckScreenVM @Inject constructor(
 
         try {
             val orderList = getOrderListUseCase.getOrderList()
+            val tmp = orderList.first()
             mutableScreenState.update { it.copy(orderList = orderList) }
         } catch (e: Exception) {
             // todo handle exception

@@ -1,22 +1,16 @@
 package stu.mai.bd_mai.features.ordering.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import stu.mai.bd_mai.App
 import stu.mai.bd_mai.database.AppDatabase
 import stu.mai.bd_mai.database.entities.MaterialsInProduct
 import stu.mai.bd_mai.database.entities.MaterialsSuppliers
 import stu.mai.bd_mai.database.entities.Order
-import stu.mai.bd_mai.database.entities.Product
 import stu.mai.bd_mai.database.entities.ProductInOrder
-import stu.mai.bd_mai.database.entities.Supplier
-import stu.mai.bd_mai.features.orders.domain.entity.MaterialCore
-import stu.mai.bd_mai.features.orders.domain.entity.ProductCore
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -42,53 +36,65 @@ class CreatingOrderVM @Inject constructor(val database: AppDatabase): ViewModel(
         executorId: Int,
         status: String,
         productId: Int,
-        productCount: Int,
+        orderCount: Int,
         materialId: Int,
         supplierId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Вставка заказа
-                val currentDate = Calendar.getInstance().time
-                val order = Order(
-                    CUSTOMER_ID = customerId,
-                    EXECUTOR_ID = executorId,
-                    ORDER_DATE = currentDate.toString(),
-                    STATUS_OF_ORDER = status
-                )
+                var order = Order(0, 0, 0, "0", "")
+                    val currentDate = Calendar.getInstance().time
+                    order = Order(
+                        CUSTOMER_ID = customerId,
+                        EXECUTOR_ID = executorId,
+                        ORDER_DATE = currentDate.toString(),
+                        STATUS_OF_ORDER = status
+                    )
+
                 database.getOrderDao().insertOrder(order)
 
-                val maxOrderId = database.getOrderDao().getMaxOrderId()
+                var maxOrderId = 0
 
-                // Вставка продукта в заказ
-                val productInOrder = ProductInOrder(
-                    ORDER_ID = maxOrderId,
-                    PRODUCT_ID = productId,
-                    COUNT = productCount
-                )
+                    maxOrderId = database.getOrderDao().getMaxOrderId()
+
+
+                var productInOrder = ProductInOrder(0, 0, 0)
+
+                     productInOrder = ProductInOrder(
+                        ORDER_ID = maxOrderId,
+                        PRODUCT_ID = productId,
+                        COUNT = orderCount
+                    )
+
+
                 database.getProductInOrderDao().insertProductInOrder(productInOrder)
+                // Вставка продукта в заказ
+
+                var materialInProduct = MaterialsInProduct(0, 0, 0)
+                     materialInProduct = MaterialsInProduct(
+                        MATERIAL_ID = materialId,
+                        PRODUCT_ID = productId,
+                        COUNT = 1
+                    )
 
                 // Вставка материала к продукту
-                val materialInProduct = MaterialsInProduct(
-                    MATERIAL_ID = materialId,
-                    PRODUCT_ID = productId,
-                    COUNT = 1
-                )
                 database.getMaterialsInProductDao().insertMaterialsInProduct(materialInProduct)
 
                 // Вставка поставщика материала
-                val materialSupplier = MaterialsSuppliers(
-                    MATERIAL_ID = materialId,
-                    SUPPLIER_ID = supplierId
-                )
+                var materialSupplier = MaterialsSuppliers(0, 0)
+
+                    materialSupplier = MaterialsSuppliers(
+                        MATERIAL_ID = materialId,
+                        SUPPLIER_ID = supplierId
+                    )
+
                 database.getMaterialsSuppliersDao().insertMaterialsSuppliers(materialSupplier)
 
             } catch (e: Exception) {
-                // Обработка ошибки, если необходимо
+                Log.d("1", "Error creating order: ${e.message}")
             }
         }
     }
-
-
 
 }

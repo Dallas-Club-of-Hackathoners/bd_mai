@@ -15,7 +15,7 @@ interface MaterialsSuppliersDao {
     fun getMaterialsSuppliersBySupplierId(supplierId: Int): Flow<List<MaterialsSuppliers>>
 
     @Query("SELECT * FROM MATERIALS_SUPPLIERS WHERE MATERIAL_ID = :materialId")
-    fun getMaterialsSuppliersByMaterialId(materialId: Int): Flow<List<MaterialsSuppliers>>
+    fun getMaterialsSuppliersByMaterialId(materialId: Int): List<MaterialsSuppliers>
 
     @Query("SELECT * FROM MATERIALS_SUPPLIERS")
     fun getAllMaterialsSuppliers(): Flow<List<MaterialsSuppliers>>

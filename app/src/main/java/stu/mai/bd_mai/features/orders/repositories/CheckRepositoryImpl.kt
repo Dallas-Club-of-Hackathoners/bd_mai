@@ -1,11 +1,9 @@
 package stu.mai.bd_mai.features.orders.repositories
 
+import android.util.Log
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.toList
 import stu.mai.bd_mai.database.AppDatabase
+import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Material
 import stu.mai.bd_mai.database.entities.Order
 import stu.mai.bd_mai.database.entities.Product
@@ -21,19 +19,17 @@ class CheckRepositoryImpl @Inject constructor(
 
     override suspend fun getOrderByOrderId(orderId: Int): OrderCore {
         val order = database.getOrderDao().getOrderById(orderId)
-        return getOrderCore(order)
+        val tmp = order
+        val result = getOrderCore(order)
+        return result
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getOrderList(): Flow<List<OrderCore>> {
-        return database.getOrderDao().getAllOrders().flatMapConcat { orderList ->
-            flow {
-                emit(orderList.map {
-                    getOrderCore(it)
-                })
-            }
-        }
+    override suspend fun getOrderList(): List<OrderCore> {
+        val orderList = database.getOrderDao().getAllOrders()
 
+        return orderList.map {
+            getOrderCore(it)
+        }
     }
 
     override suspend fun deleteOrder(orderId: Int) {
@@ -44,13 +40,18 @@ class CheckRepositoryImpl @Inject constructor(
         val customer = database.getCustomerDao().getCustomerById(order.CUSTOMER_ID)
         val executor = database.getExecutorDao().getExecutorById(order.EXECUTOR_ID)
         val products = getProductsInOrder(order.ORDER_ID)
+        val count = database.getProductInOrderDao().getProductsInOrderById(orderId = order.ORDER_ID).first().COUNT
         val productsCore = products.map {
             getProductCore(it)
         }
 
-        val orderPrice = productsCore.sumOf {
-            it.productPrice
+        var orderPrice = 0.0
+
+        for (product in productsCore) {
+             orderPrice+= product.productPrice * count
         }
+
+
         return OrderCore(
             orderId = order.ORDER_ID,
             orderData = order.ORDER_DATE,
@@ -88,47 +89,33 @@ class CheckRepositoryImpl @Inject constructor(
         )
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     private suspend fun getProductsInOrder(orderId: Int): List<Product> {
-        return database.getProductInOrderDao().getProductsInOrderById(orderId).flatMapConcat {
-            productInOrderList ->
-            flow {
-                for ( productInOrder in productInOrderList) {
-                    emit(database.getProductDao().getProductById(productInOrder.PRODUCT_ID))
-                }
-            }
-        }.toList()
+        val productInOrderList = database.getProductInOrderDao().getProductsInOrderById(orderId)
+
+        return productInOrderList.map { productInOrder ->
+            database.getProductDao().getProductById(productInOrder.PRODUCT_ID)
+        }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+
     private suspend fun getMaterialsInOrder(product: Product): List<Material> {
-        return database.getMaterialsInProductDao()
-            .getMaterialsInProductByProductId(product.PRODUCT_ID)
-            .flatMapConcat { materialsInProductList ->
-                flow {
-                    for (materialsInProduct in materialsInProductList) {
-                        emit(
-                            database.getMaterialDao().getMaterialById(materialsInProduct.MATERIAL_ID)
-                        )
-                    }
-                }
-            }.toList()
+        val materialsInProductList =
+            database.getMaterialsInProductDao().getMaterialsInProductByProductId(product.PRODUCT_ID)
+
+        return materialsInProductList.map { materialsInProduct ->
+            database.getMaterialDao().getMaterialById(materialsInProduct.MATERIAL_ID)
+        }
     }
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private suspend fun getSuppliersByMaterial(materials: Material): List<Supplier> {
-        return database.getMaterialsSuppliersDao()
-            .getMaterialsSuppliersByMaterialId(materials.MATERIAL_ID)
-            .flatMapConcat { suppliersInMaterialList ->
-                flow {
-                    for (supplierInMaterial in suppliersInMaterialList) {
-                        emit(
-                            database.getSupplierDao().getSupplierById(supplierInMaterial.SUPPLIER_ID)
-                        )
-                    }
-                }
-            }.toList()
+
+    private suspend fun getSuppliersByMaterial(material: Material): List<Supplier> {
+        val suppliersInMaterialList =
+            database.getMaterialsSuppliersDao().getMaterialsSuppliersByMaterialId(material.MATERIAL_ID)
+
+        return suppliersInMaterialList.map { supplierInMaterial ->
+            database.getSupplierDao().getSupplierById(supplierInMaterial.SUPPLIER_ID)
+        }
     }
 
 

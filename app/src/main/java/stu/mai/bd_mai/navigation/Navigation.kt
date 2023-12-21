@@ -28,6 +28,7 @@ fun Navigation(
     ) {
 
         composable(Screen.CheckScreenRoute.route) {
+
             CheckScreenRoute(
                 onNavigateToSettings = {
                     navHostController.navigate(route = Screen.NewParamsScreen.route)
@@ -37,9 +38,12 @@ fun Navigation(
                     navHostController.navigate(route = Screen.CreatingOrderScreen.route)
                     Log.d("Navigation", "Navigating to Creating Order screen")
                 },
-                onNavigateToCardOrder = { id ->
-                    navHostController.navigate(route = Screen.CardOrderScreen(id).getRouteWithArgs())
-                    Log.d("Navigation", "Navigating to Card Order screen with ID: $id")
+                onNavigateToCardOrder = { orderId ->
+                    navHostController.navigate(
+                        route = Screen.CardOrderScreenRoute(orderId).getRouteWithArgs()
+                    )
+
+                    Log.d("Navigation", "Navigating to Card Order screen with ID: $orderId")
                 }
             )
         }
@@ -121,7 +125,21 @@ fun Navigation(
                 },
             )
         }
+        composable(Screen.Collection1Screen.route) {
 
+        }
+        composable(Screen.Collection2Screen.route) {
+
+        }
+        composable(Screen.Collection3Screen.route) {
+
+        }
+        composable(Screen.Collection4Screen.route) {
+
+        }
+        composable(Screen.Collection5Screen.route) {
+
+        }
     }
 }
 

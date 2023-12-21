@@ -40,9 +40,8 @@ fun CardOrderScreenRoute(
     val (state, event) = use(viewModel = viewModel)
 
     LaunchedEffect(key1 = Unit) {
-        if (state.order == null) {
-            event.invoke(CardOrderContract.Event.OnGetOrder(orderId))
-        }
+        event(CardOrderContract.Event.OnGetOrder(orderId))
+
     }
 
     CardOrder(
@@ -52,17 +51,6 @@ fun CardOrderScreenRoute(
     )
 
 }
-
-//val LocalCardOrderViewModel = staticCompositionLocalOf<CardOrderVM> {
-//    error("No ViewModel provided")
-//}
-//
-//@Composable
-//fun ProvideCardOrderViewModel(viewModel: CardOrderVM, content: @Composable () -> Unit) {
-//    CompositionLocalProvider(LocalCardOrderViewModel provides viewModel) {
-//        content()
-//    }
-//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

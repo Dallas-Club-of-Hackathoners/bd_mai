@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
@@ -34,19 +35,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
@@ -57,8 +52,7 @@ import stu.mai.bd_mai.use
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CheckScreenRoute(
-    viewModel: CheckScreenVM = hiltViewModel(
-    ),
+    viewModel: CheckScreenVM = hiltViewModel(),
     onNavigateToCreatingOrder: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToCardOrder: (orderId: Int) -> Unit,
@@ -67,8 +61,8 @@ fun CheckScreenRoute(
     val (state, event) = use(viewModel = viewModel)
 
     LaunchedEffect(key1 = Unit) {
-        if (viewModel.state.value.orderList == emptyFlow<List<OrderCore>>()) {
-            event.invoke(CheckScreenContract.Event.OnGetOrderList)
+        if (viewModel.state.value.orderList == emptyList<List<OrderCore>>()) {
+            event(CheckScreenContract.Event.OnGetOrderList)
         }
     }
 
@@ -95,11 +89,16 @@ fun CheckScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Drawer title", modifier = Modifier.padding(16.dp))
+                Text(
+                    "Список популярных выборок",
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 20.sp
+                )
                 Divider()
                 repeat(5) { index ->
                     Box(
@@ -114,14 +113,40 @@ fun CheckScreen(
                             }
                             .background(MaterialTheme.colorScheme.surface)
                     ) {
-                        Text("Button ${index + 1}")
+                        Text(
+                            "Button ${index + 1}",
+                            fontSize = 18.sp
+                        )
                     }
                 }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(3) {
+                        IconButton(
+                            onClick = {
+                                scope.launch {
+                                    drawerState.close()
+                                }
+                            },
+                            modifier = Modifier
+                                .weight(1f)
+                        ) {
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Закрыть")
+                        }
+                    }
+                }
+
+
             }
         }
     ) {
         // Content of the screen
-        val orderList = orderListState.orderList.collectAsState(initial = emptyList()).value
+        val orderList = orderListState.orderList
 
         Scaffold(
             topBar = {
@@ -180,7 +205,12 @@ fun CheckScreen(
                 LazyColumn {
                     items(orderList) { order ->
                         // Здесь вы можете размещать элементы вашего списка
-                        OrderCardSummary(order = order, onNavigateToCardOrder)
+                        OrderCardSummary(
+                            order = order,
+                            onItemClick = {
+                                onNavigateToCardOrder(order.orderId)
+                            },
+                        )
                     }
                 }
             }
@@ -190,7 +220,7 @@ fun CheckScreen(
 
 
 @Composable
-fun OrderCardSummary(order: OrderCore, onNavigateToCardOrder: (orderId: Int) -> Unit) {
+fun OrderCardSummary(order: OrderCore, onItemClick: (Int) -> Unit) {
     // Здесь разместите компоненты для отображения карточки заказа
     // Пример:
     Card(
@@ -210,7 +240,7 @@ fun OrderCardSummary(order: OrderCore, onNavigateToCardOrder: (orderId: Int) -> 
 
 
             Button(
-                onClick = { onNavigateToCardOrder(order.orderId) },
+                onClick = { onItemClick(order.orderId) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
@@ -252,7 +282,7 @@ fun CheckScreenPreview() {
         )
     )
 
-    val previewState = (CheckScreenContract.State(orderList = flowOf(orderList) ))
+    val previewState = (CheckScreenContract.State(orderList = (orderList) ))
     CheckScreen(
         orderListState = previewState,
         onNavigateToCreatingOrder = {},
@@ -289,7 +319,7 @@ fun OrderCardSummaryPreview() {
         )
     )
 
-    OrderCardSummary(order = order, onNavigateToCardOrder = {})
+    OrderCardSummary(order = order, onItemClick = {})
 }
 
 

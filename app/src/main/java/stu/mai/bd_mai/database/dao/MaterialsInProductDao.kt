@@ -15,7 +15,7 @@ interface MaterialsInProductDao {
             fun getMaterialsInProductByMaterialId(materialId: Int): Flow<List<MaterialsInProduct>>
 
         @Query("SELECT * FROM MATERIALS_IN_PRODUCT WHERE PRODUCT_ID = :productId")
-            fun getMaterialsInProductByProductId(productId: Int): Flow<List<MaterialsInProduct>>
+            fun getMaterialsInProductByProductId(productId: Int): List<MaterialsInProduct>
 
         @Query("SELECT * FROM MATERIALS_IN_PRODUCT")
             fun getAllMaterialsInProducts(): Flow<List<MaterialsInProduct>>

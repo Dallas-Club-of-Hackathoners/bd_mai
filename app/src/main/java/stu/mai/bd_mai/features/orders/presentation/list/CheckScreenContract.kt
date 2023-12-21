@@ -11,9 +11,9 @@ interface CheckScreenContract : UnidirectionalViewModel<CheckScreenContract.Stat
 
         @Stable
         data class State(
-            val orderList : Flow<List<OrderCore>> = emptyFlow(),
+            val orderList : List<OrderCore> = emptyList(),
 
-        )
+            )
 
         @Stable
         sealed class Event {

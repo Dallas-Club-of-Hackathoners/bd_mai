@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -41,13 +40,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
 import stu.mai.bd_mai.database.entities.Material
@@ -103,11 +100,17 @@ fun CreatingOrderScreen (
                     .padding(16.dp)
             ) {
 
-                CustomerDropdown(customers = customers, onCustomerSelected = {selectedCustomer = it} )
-                ExecutorDropdown(executors = executors, onExecutorSelected = {selectedExecutor = it} )
-                ProductDropdown(products = products, onProductSelected = {selectedProduct = it} )
-                MaterialDropdown(materials = materials, onMaterialSelected ={selectedMaterial = it} )
-                SupplierDropdown(suppliers = suppliers, onSupplierSelected = {selectedSupplier = it} )
+                    Spacer(modifier = Modifier.height(36.dp))
+
+
+                    CustomerDropdown(customers = customers, onCustomerSelected = {selectedCustomer = it} )
+                    ExecutorDropdown(executors = executors, onExecutorSelected = {selectedExecutor = it} )
+                    ProductDropdown(products = products, onProductSelected = {selectedProduct = it} )
+                    MaterialDropdown(materials = materials, onMaterialSelected ={selectedMaterial = it} )
+                    SupplierDropdown(suppliers = suppliers, onSupplierSelected = {selectedSupplier = it} )
+
+
+                // Выпадающие списки
 
                 // Ввод количества
                 OutlinedTextField(
@@ -157,7 +160,7 @@ fun CreatingOrderScreen (
                                                     executorId = executor.EXECUTOR_ID,
                                                     status = orderStatus,
                                                     productId = product.PRODUCT_ID,
-                                                    productCount = count,
+                                                    orderCount = count,
                                                     materialId = material.MATERIAL_ID,
                                                     supplierId = supplier.SUPPLIER_ID
                                                 )
@@ -171,7 +174,7 @@ fun CreatingOrderScreen (
                         modifier = Modifier
                             .weight(1f)
                             .height(50.dp)
-                            .padding( 5.dp),
+                            .padding(5.dp),
                         colors = ButtonDefaults.buttonColors( Color.Cyan)
                     ) {
                         Row(
@@ -189,7 +192,7 @@ fun CreatingOrderScreen (
                         modifier = Modifier
                             .weight(1f)
                             .height(50.dp)
-                            .padding( 5.dp),
+                            .padding(5.dp),
                         colors = ButtonDefaults.buttonColors( Color.Cyan)
                     ) {
                         Row(
@@ -207,6 +210,47 @@ fun CreatingOrderScreen (
     )
 }
 
+
+@Composable
+fun CustomerDropdown(
+    customers: List<Customer>,
+    onCustomerSelected: (Customer) -> Unit
+) {
+    var expandedMenu by remember { mutableStateOf(false) }
+    var selectedCustomer by remember { mutableStateOf<Customer?>(null) }
+
+    Column {
+        Text(
+            text = selectedCustomer?.NAME ?: "Выберите заказчика",
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
+                .clickable {
+                    expandedMenu = !expandedMenu
+                }
+                .padding(16.dp)
+        )
+
+        DropdownMenu(
+            expanded = expandedMenu,
+            onDismissRequest = { expandedMenu = false },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            customers.forEach { customer ->
+                DropdownMenuItem(
+                    text = { Text(text = customer.NAME) },
+                    onClick = {
+                        selectedCustomer = customer
+                        onCustomerSelected(customer)
+                        expandedMenu = false
+                    }
+                )
+            }
+        }
+    }
+}
 
 @Composable
 fun MaterialDropdown(
@@ -248,7 +292,6 @@ fun MaterialDropdown(
         }
     }
 }
-
 @Composable
 fun SupplierDropdown(
     suppliers: List<Supplier>,
@@ -282,46 +325,6 @@ fun SupplierDropdown(
                     onClick = {
                         selectedSupplier = supplier
                         onSupplierSelected(supplier)
-                        expandedMenu = false
-                    }
-                )
-            }
-        }
-    }
-}
-@Composable
-fun CustomerDropdown(
-    customers: List<Customer>,
-    onCustomerSelected: (Customer) -> Unit
-) {
-    var expandedMenu by remember { mutableStateOf(false) }
-    var selectedCustomer by remember { mutableStateOf<Customer?>(null) }
-
-    Column {
-        Text(
-            text = selectedCustomer?.NAME ?: "Выберите заказчика",
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
-                .clickable {
-                    expandedMenu = !expandedMenu
-                }
-                .padding(16.dp)
-        )
-
-        DropdownMenu(
-            expanded = expandedMenu,
-            onDismissRequest = { expandedMenu = false },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            customers.forEach { customer ->
-                DropdownMenuItem(
-                    text = { Text(text = customer.NAME) },
-                    onClick = {
-                        selectedCustomer = customer
-                        onCustomerSelected(customer)
                         expandedMenu = false
                     }
                 )
