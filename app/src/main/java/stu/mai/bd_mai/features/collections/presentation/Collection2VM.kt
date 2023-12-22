@@ -8,5 +8,6 @@ import javax.inject.Inject
 @HiltViewModel
 class Collection2VM @Inject constructor(val database: AppDatabase): ViewModel() {
 
+    fun getSupplierWithTotalMaterials() = database.getCollectionDao().getSuppliersWithTotalMaterials()
 
 }

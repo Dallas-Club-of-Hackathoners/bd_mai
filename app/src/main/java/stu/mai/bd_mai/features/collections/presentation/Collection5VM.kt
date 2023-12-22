@@ -8,4 +8,5 @@ import javax.inject.Inject
 @HiltViewModel
 class Collection5VM @Inject constructor(val database: AppDatabase): ViewModel() {
 
+    fun getCustomersWithTotalPurchase() = database.getCollectionDao().getCustomersWithTotalPurchase()
 }
