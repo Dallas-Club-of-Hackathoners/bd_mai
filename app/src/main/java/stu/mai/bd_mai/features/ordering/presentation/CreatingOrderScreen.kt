@@ -97,10 +97,10 @@ fun CreatingOrderScreen (
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
+                    .padding(top = 40.dp, start = 20.dp, end = 20.dp, bottom =20.dp)
             ) {
 
-                    Spacer(modifier = Modifier.height(36.dp))
+                    Spacer(modifier = Modifier.height(40.dp))
 
 
                     CustomerDropdown(customers = customers, onCustomerSelected = {selectedCustomer = it} )

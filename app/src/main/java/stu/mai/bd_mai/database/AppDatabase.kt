@@ -2,6 +2,7 @@ package stu.mai.bd_mai.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import stu.mai.bd_mai.database.dao.CollectionDao
 import stu.mai.bd_mai.database.dao.CustomerDao
 import stu.mai.bd_mai.database.dao.ExecutorDao
 import stu.mai.bd_mai.database.dao.MaterialDao
@@ -46,7 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getProductInOrderDao(): ProductInOrderDao
     abstract fun getSupplierDao(): SupplierDao
     abstract fun getMaterialsSuppliersDao(): MaterialsSuppliersDao
-
+    abstract fun getCollectionDao(): CollectionDao
 
 }
 

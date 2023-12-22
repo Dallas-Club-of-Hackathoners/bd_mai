@@ -7,6 +7,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import stu.mai.bd_mai.features.collections.presentation.Collection1Screen
+import stu.mai.bd_mai.features.collections.presentation.Collection2Screen
+import stu.mai.bd_mai.features.collections.presentation.Collection3Screen
+import stu.mai.bd_mai.features.collections.presentation.Collection4Screen
+import stu.mai.bd_mai.features.collections.presentation.Collection5Screen
 import stu.mai.bd_mai.features.settings.customers.SettingCustomersScreen
 import stu.mai.bd_mai.features.settings.executors.SettingExecutorsScreen
 import stu.mai.bd_mai.features.orders.presentation.card.CardOrderScreenRoute
@@ -42,9 +47,29 @@ fun Navigation(
                     navHostController.navigate(
                         route = Screen.CardOrderScreenRoute(orderId).getRouteWithArgs()
                     )
-
                     Log.d("Navigation", "Navigating to Card Order screen with ID: $orderId")
-                }
+                },
+                onNavigateToCollection1 = {
+                    navHostController.navigate(route = Screen.Collection1Screen.route)
+                    Log.d("Navigation", "Navigating to Collection 1 screen")
+                },
+                onNavigateToCollection2 = {
+                    navHostController.navigate(route = Screen.Collection2Screen.route)
+                    Log.d("Navigation", "Navigating to Collection 2 screen")
+                },
+                onNavigateToCollection3 = {
+                    navHostController.navigate(route = Screen.Collection3Screen.route)
+                    Log.d("Navigation", "Navigating to Collection 3 screen")
+                },
+                onNavigateToCollection4 = {
+                    navHostController.navigate(route = Screen.Collection4Screen.route)
+                    Log.d("Navigation", "Navigating to Collection 4 screen")
+                },
+                onNavigateToCollection5 = {
+                    navHostController.navigate(route = Screen.Collection5Screen.route)
+                    Log.d("Navigation", "Navigating to Collection 5 screen")
+                },
+
             )
         }
         composable(Screen.CreatingOrderScreen.route) {
@@ -126,19 +151,39 @@ fun Navigation(
             )
         }
         composable(Screen.Collection1Screen.route) {
-
+            Collection1Screen (
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
         }
         composable(Screen.Collection2Screen.route) {
-
+            Collection2Screen(
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
         }
         composable(Screen.Collection3Screen.route) {
-
+            Collection3Screen(
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
         }
         composable(Screen.Collection4Screen.route) {
-
+            Collection4Screen(
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
         }
         composable(Screen.Collection5Screen.route) {
-
+            Collection5Screen(
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
         }
     }
 }

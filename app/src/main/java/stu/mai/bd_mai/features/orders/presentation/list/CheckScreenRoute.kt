@@ -45,6 +45,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import stu.mai.bd_mai.database.entities.Customer
 import stu.mai.bd_mai.database.entities.Executor
+import stu.mai.bd_mai.features.orders.domain.entity.DrawerButton
 import stu.mai.bd_mai.features.orders.domain.entity.OrderCore
 import stu.mai.bd_mai.features.orders.domain.entity.ProductCore
 import stu.mai.bd_mai.use
@@ -56,6 +57,12 @@ fun CheckScreenRoute(
     onNavigateToCreatingOrder: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToCardOrder: (orderId: Int) -> Unit,
+    onNavigateToCollection1: () -> Unit,
+    onNavigateToCollection2: () -> Unit,
+    onNavigateToCollection3: () -> Unit,
+    onNavigateToCollection4: () -> Unit,
+    onNavigateToCollection5: () -> Unit,
+
 ) {
 
     val (state, event) = use(viewModel = viewModel)
@@ -71,6 +78,13 @@ fun CheckScreenRoute(
         onNavigateToCreatingOrder = onNavigateToCreatingOrder,
         onNavigateToSettings = onNavigateToSettings,
         onNavigateToCardOrder = onNavigateToCardOrder,
+        onNavigateToCollection1 = onNavigateToCollection1,
+        onNavigateToCollection2 = onNavigateToCollection2,
+        onNavigateToCollection3 = onNavigateToCollection3,
+        onNavigateToCollection4 = onNavigateToCollection4,
+        onNavigateToCollection5 = onNavigateToCollection5,
+
+
     )
 
 }
@@ -85,10 +99,23 @@ fun CheckScreen(
     onNavigateToCreatingOrder: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToCardOrder: (orderId: Int) -> Unit,
+    onNavigateToCollection1: () -> Unit,
+    onNavigateToCollection2: () -> Unit,
+    onNavigateToCollection3: () -> Unit,
+    onNavigateToCollection4: () -> Unit,
+    onNavigateToCollection5: () -> Unit,
 ) {
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Open)
     val scope = rememberCoroutineScope()
 
+    val buttons = listOf(
+        DrawerButton("Выборка 1", onNavigateToCollection1),
+        DrawerButton("Выборка 2", onNavigateToCollection2),
+        DrawerButton("Выборка 3", onNavigateToCollection3),
+        DrawerButton("Выборка 4", onNavigateToCollection4),
+        DrawerButton("Выборка 5", onNavigateToCollection5),
+
+    )
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -100,7 +127,7 @@ fun CheckScreen(
                     fontSize = 20.sp
                 )
                 Divider()
-                repeat(5) { index ->
+                buttons.forEach { button ->
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -109,12 +136,13 @@ fun CheckScreen(
                                 // Handle button click here
                                 scope.launch {
                                     drawerState.close()
+                                    button.onClick()
                                 }
                             }
                             .background(MaterialTheme.colorScheme.surface)
                     ) {
                         Text(
-                            "Button ${index + 1}",
+                            button.label,
                             fontSize = 18.sp
                         )
                     }
@@ -287,7 +315,13 @@ fun CheckScreenPreview() {
         orderListState = previewState,
         onNavigateToCreatingOrder = {},
         onNavigateToSettings = {},
-        onNavigateToCardOrder = {}
+        onNavigateToCardOrder = {},
+        onNavigateToCollection1 = {},
+        onNavigateToCollection2 = {},
+        onNavigateToCollection3 = {},
+        onNavigateToCollection4 = {},
+        onNavigateToCollection5 = {},
+
     )
 }
 
